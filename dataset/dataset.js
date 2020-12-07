@@ -1,9 +1,9 @@
-const baseDir = "/preprocess/";
+const baseDir = "../preprocess/";
 const gdpGrowth = "gdp_growth.csv";
 const gdpLevel = "gdp_level.csv";
 const unemploymentRate = "unemployment_rate.csv";
 const eduAttainmentTemplate = "edu_attainment_";
-const all = "/all.csv";
+const all = "../all.csv";
 
 d3.csv(all, renderAll);
 

@@ -1,6 +1,6 @@
 // modify by Tsan-Ming Lu
-// from 'http://localhost:8888/all.csv' to '/all.csv'
-var dataurl = '/all.csv';
+// from 'http://localhost:8888/all.csv' to '../all.csv'
+var dataurl = '../all.csv';
 var mapurl = 'https://d3js.org/us-10m.v1.json';
 const state_names = ["Alaska", "Alabama", "Arkansas", "Arizona", "California", "Colorado", "Connecticut", "District of Columbia",
     "Delaware", "Florida", "Georgia", "Hawaii", "Iowa", "Idaho", "Illinois", "Indiana", "Kansas", "Kentucky", "Louisiana",

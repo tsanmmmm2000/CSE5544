@@ -6,7 +6,7 @@ const labels = {
     medium: "Medium GDP",
     high: "High GDP"
 };
-d3.csv("/all.csv", processData);
+d3.csv("../all.csv", processData);
 var processedData = {
   low: [],
   medium: [],
