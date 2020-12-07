@@ -20,7 +20,7 @@ function drawLineGraph(graphNum, state, dataByState) {
 
     // line graph
     var yDomain = [-5, 40];
-    var margin = { top: 20, right: 150, bottom: 30, left: 50 },
+    var margin = { top: 20, right: 50, bottom: 80, left: 50 },
         // size is adjusted by Tsan-Ming Lu
         // width from 650 to 600
         // height from 400 to 370
@@ -116,7 +116,7 @@ function drawLineGraph(graphNum, state, dataByState) {
         .data(["ur", "ea", "gg"])
         .enter().append("svg:g")
         .attr("class", "legend")
-        .attr("transform", function (d, i) { return "translate(" + (width) + "," + (i * 40) + ")"; });
+        .attr("transform", function (d, i) { return "translate(" + (50 + i*150) + "," + (height + margin.top) + ")"; });
 
     legend.append("svg:circle")
         .style("fill", function (d) {

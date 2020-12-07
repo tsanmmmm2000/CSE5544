@@ -287,7 +287,7 @@ function updateMap(dataByYear) {
     // update year
     d3.select("#range").nodes()[0].innerHTML = timeValue;
 
-    // update state information
+    // update state text information
     var mapInfo = d3.select(".tooltip-donut");
     d3.selectAll(".map_path")
         .on('mouseover', function (d) {
@@ -321,6 +321,7 @@ function updateMap(dataByYear) {
                 .style("opacity", 0);
         })
     
+    // update color of each state
     if (mapTopic == 'ur') {
         d3.select('#map_title').nodes()[0].innerHTML = "Unemployment Rate";
         for (var i = 0; i < dataByYear[timeValue].length; i++) {
@@ -346,6 +347,8 @@ function updateMap(dataByYear) {
                 .style('fill', ggColor(+dataByYear[timeValue][i].gdp_growth_rate));
         }
     }
+
+    // update legend
     var period = (domainList[mapTopic][1] - domainList[mapTopic][0])/colorList[mapTopic].length;
         for(var i = 0; i < colorList[mapTopic].length; i++) {
             d3.select('#legend_cir' + String(i))
