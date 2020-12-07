@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>CSE 5544 Final Project</title>
 	<!-- <script type="text/javascript" src="d3/d3.min.js"></script>  -->
@@ -8,19 +9,19 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
 	<script src="https://d3js.org/topojson.v2.min.js"></script>
 	<!-- add by Tsan-Ming Lu -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>	
-	<link rel="stylesheet" href="../style.css" >
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+	<link rel="stylesheet" href="../style.css">
 	<style>
 		body {
 			font-family: "Helvetica Neue", Helvetica, sans-serif;
 			font-size: 14px;
 			color: #333;
 		}
-	
+
 		table {
 			text-align: center;
 		}
@@ -37,38 +38,64 @@
 			font-size: 1.0rem;
 		}
 
-        input[type="range"] {
-            width:400px;
-        }
+		input[type="range"] {
+			width: 400px;
+		}
+
+		#sliderContainer {
+			background-color: lightblue;
+			border-style: groove;
+			margin-bottom: 20px;
+			padding-bottom: 10px;
+			padding-right: 20px;
+			padding-left: 20px;
+			border-radius: 1em;
+		}
+
+		#map_svg {
+			background-color: #E0E0E0;
+		}
+
+		#map_title {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		.radio_area {
+			background-color: lightgrey;
+			padding-top: 6px;
+			padding-right: 10px;
+			padding-left: 10px;
+			border-radius: .2em;
+		}
 	</style>
 	<!-- add by Tsan-Ming Lu -->
 	<script>
-		$(function() { feather.replace(); });
+		$(function () { feather.replace(); });
 	</script>
 </head>
 
 <body>
 	<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="../overview">CSE 5544 Final Project</a>
+		<a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="../overview">CSE 5544 Final Project</a>
 	</nav>
-	  
+
 	<div class="container-fluid">
-        <div class="row">
+		<div class="row">
 			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
 				<div class="sidebar-sticky pt-3">
 					<ul class="nav flex-column">
 						<li class="nav-item">
 							<a class="nav-link" href="../overview">
-							  <span data-feather="book-open"></span>
-							  Overview
+								<span data-feather="book-open"></span>
+								Overview
 							</a>
-						</li>						           
+						</li>
 						<li class="nav-item">
 							<a class="nav-link active" href="../question1">
 								<span data-feather="map"></span>
 								Question 1
 							</a>
-						</li>                              
+						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="../question2and3">
 								<span data-feather="activity"></span>
@@ -80,24 +107,25 @@
 								<span data-feather="file-text"></span>
 								Data Source
 							</a>
-						</li>                                       
+						</li>
 					</ul>
 				</div>
 			</nav>
 
-		  	<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 				<div class="justify-content-between pt-3 pb-2 mb-3">
 					<div class="card">
-					 	<h5 class="card-header">Question 1</h5>
-					  	<div class="card-body">
+						<h5 class="card-header">Question 1</h5>
+						<div class="card-body">
 							<blockquote class="blockquote mb-0">
-								<p><cite>What is the trend of unemployment rate, GDP growth, and educational attainment data in the past decade?</cite></p>
+								<p><cite>What is the trend of unemployment rate, GDP growth, and educational attainment
+										data in the past decade?</cite></p>
 							</blockquote>
-					  </div>
+						</div>
 					</div>
-				</div> 
-            	<div class="justify-content-between pt-3 pb-2 mb-3 border-bottom">
-								
+				</div>
+				<div class="justify-content-between pt-3 pb-2 mb-3 border-bottom">
+
 					<div class="container-fluid">
 						<div class="row">
 							<!-- US State Map Start -->
@@ -111,23 +139,23 @@
 										<div class="row justify-content-center">
 											<div id="range">2010</div>
 										</div>
-										<input id="timeslide" type="range" min="0" max="9" value="0" step="1"/><br>
+										<input id="timeslide" type="range" min="0" max="9" value="0" step="1" /><br>
 									</div>
 								</div>
 								<div class="row justify-content-center">
 									<div class="col-2">
 										<div class="row justify-content-center">
-											<button type="button" id="btn_ur">Unemployment Rate</button>
+											<button type="button" id="btn_ur" class="btn btn-item btn-secondary">Unemployment Rate</button>
 										</div>
 									</div>
 									<div class="col-2">
 										<div class="row justify-content-center">
-											<button type="button" id="btn_ea">Education Attainment</button>
+											<button type="button" id="btn_ea" class="btn btn-item btn-secondary">Education Attainment</button>
 										</div>
 									</div>
 									<div class="col-2">
 										<div class="row justify-content-center">
-											<button type="button" id="btn_gg">GDP Growth</button>
+											<button type="button" id="btn_gg" class="btn btn-item btn-secondary">GDP Growth</button>
 										</div>
 									</div>
 								</div>
@@ -151,8 +179,10 @@
 							-->
 							<div class="col-md-6">
 								<div class="row justify-content-center">
-									<input type="radio" id="line_radio1" name="line_select" value="1" checked>
-									<label for="line_radio1">Left Line Graph</label><br>
+									<div class="radio_area">
+										<input type="radio" id="line_radio1" name="line_select" value="1" checked>
+										<label for="line_radio1">&nbsp;Left Line Graph</label><br>
+									</div>
 								</div>
 								<div class="row justify-content-center">
 									<p id="line_title1"></p>
@@ -164,11 +194,13 @@
 							<!-- 
 								adjust by Tsan-Ming Lu 
 								from "col-md-4" to "col-md-6"
-							-->							
+							-->
 							<div class="col-md-6">
 								<div class="row justify-content-center">
-									<input type="radio" id="line_radio2" name="line_select" value="2">
-									<label for="line_radio2">Right Line Graph</label><br>
+									<div class="radio_area">
+										<input type="radio" id="line_radio2" name="line_select" value="2">
+										<label for="line_radio2">&nbsp;Right Line Graph</label><br>
+									</div>
 								</div>
 								<div class="row justify-content-center">
 									<p id="line_title2"></p>
@@ -181,11 +213,11 @@
 						<br>
 					</div>
 
-				</div>    					  
-          	</main>
+				</div>
+			</main>
 
-        </div>
-	</div>    
+		</div>
+	</div>
 
 	<script type="text/javascript" src="data_processing.js"></script>
 	<script type="text/javascript" src="map_panel.js"></script>

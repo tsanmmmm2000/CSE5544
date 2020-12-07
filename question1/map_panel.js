@@ -119,14 +119,14 @@ const time = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2
 const colorList = {
     'ur': ['#0000FF', '#8080FF', '#FF8080', '#FF0000'],
     'ea': ['#FFFFCC', '#FFFF99', '#FF9933', '#CC6600'],
-    'gg': ['#99FFCC', '#33FF99', '#00FF00', '#009900']
+    'gg': ['#FF3333', '#33FF99', '#00FF00', '#009900']
 };
 
 var timeValue = "2010";
 var domainList = {
     'ur': [0, 10],
     'ea': [25, 30],
-    'gg': [0, 3]
+    'gg': [-1.1, 3.3]
 };
 
 var urColor = d3.scaleQuantize()
@@ -194,6 +194,7 @@ function drawMap(geoData, dataByYear, year, dataByState) {
         .attr('id', function (d) {
             return "map_" + d.id;
         })
+        .attr('class', 'map_path')
         .style('fill', function (d) {
             var stateStr = fipsToState[d.id];
             for (var i = 0; i < dataByYear[year].length; i++) {
@@ -206,7 +207,7 @@ function drawMap(geoData, dataByYear, year, dataByState) {
         .on("click", function(d) {
             updateLineGraph(selectedGraph, fipsToState[d.id], dataByState);
         })
-        .on('mouseover', function (d, i) {
+        .on('mouseover', function (d) {
             d3.select(this).transition()
                 .duration('50')
                 .attr('opacity', '.85');
@@ -287,12 +288,46 @@ function updateMap(dataByYear) {
     d3.select("#range").nodes()[0].innerHTML = timeValue;
 
     // update state information
+    var mapInfo = d3.select(".tooltip-donut");
+    d3.selectAll(".map_path")
+        .on('mouseover', function (d) {
+            d3.select(this).transition()
+                .duration('50')
+                .attr('opacity', '.85');
+            mapInfo.transition()
+                .duration(50)
+                .style("opacity", 1);
+            var stateStr = fipsToState[this.id.substr(4, 5)];
+            var textdata;
+            for (var i = 0; i < dataByYear[timeValue].length; i++) {
+                if (dataByYear[timeValue][i].state == stateStr) {
+                    if(mapTopic == 'ur') textdata = (dataByYear[timeValue][i].unemployment_rate);
+                    else if(mapTopic == 'ea') textdata = dataByYear[timeValue][i].edu_attainment;
+                    else if(mapTopic == 'gg') textdata = dataByYear[timeValue][i].gdp_growth_rate;
+                    break;
+                }
+            }
+            textdata = String(textdata.toFixed(2));
+            mapInfo.html(stateStr + '<br>' + textdata + '%')
+                .style("left", d3.event.pageX + "px")
+                .style("top", d3.event.pageY + "px");
+        })
+        .on('mouseout', function () {
+            d3.select(this).transition()
+                .duration('50')
+                .attr('opacity', '1');
+            mapInfo.transition()
+                .duration('50')
+                .style("opacity", 0);
+        })
+    
     if (mapTopic == 'ur') {
         d3.select('#map_title').nodes()[0].innerHTML = "Unemployment Rate";
         for (var i = 0; i < dataByYear[timeValue].length; i++) {
             var stateStr = dataByYear[timeValue][i].state;
+            var urdata = dataByYear[timeValue][i].unemployment_rate;
             d3.select('#map_' + stateToFips[stateStr])
-                .style('fill', urColor(+dataByYear[timeValue][i].unemployment_rate));
+                .style('fill', urColor(+urdata));
         }
     }
     else if (mapTopic == 'ea') {
