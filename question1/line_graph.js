@@ -24,7 +24,7 @@ function drawLineGraph(graphNum, state, dataByState) {
         // size is adjusted by Tsan-Ming Lu
         // width from 650 to 600
         // height from 400 to 370
-        width = 600 - margin.left - margin.right,
+        width = 540 - margin.left - margin.right,
         height = 370 - margin.top - margin.bottom;
 
     var line_svg = d3.select('#line_svg' + String(graphNum)).append('svg')
