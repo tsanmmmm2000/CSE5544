@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css" >
+  <script>
+    $(function() { feather.replace(); });
+  </script>
+  <style>
+    .circle {
+      width: 64px;
+      height: 64px;
+    }
+  </style>     
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/overview">CSE 5544 Final Project</a>
+      </nav>
+      
+      <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/overview">
+                      <span data-feather="book-open"></span>
+                      Overview
+                    </a>
+                </li>                   
+                <li class="nav-item">
+                    <a class="nav-link" href="/question1">
+                        <span data-feather="map"></span>
+                        Question 1
+                    </a>
+                </li>                              
+                <li class="nav-item">
+                    <a class="nav-link" href="/question2and3">
+                        <span data-feather="activity"></span>
+                        Question 2 & 3
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/dataset">
+                        <span data-feather="file-text"></span>
+                        Data Source
+                    </a>
+                </li>                                       
+              </ul>
+            </div>
+          </nav>
+      
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="justify-content-between pt-3 pb-2 mb-3">
+
+                <div class="jumbotron jumbotron-fluid">
+                    <div class="container">
+                    <h1 class="display-4">U.S. unemployment rate: analysis and visualization</h1>
+                    <p class="lead">Unemployment is a major problem which affects our life, health, economy and community. 
+                        Not only the developed countries but the developing countries suffer from it especially during the global financial crisis from 2007 to 2009. 
+                        In the United States, unemployment tended to rise during the great recession. 
+                        The labor market is considerably worse which pushed the jobless rate to a peak of 10.6%. 
+                        Due to the fact that we are living in a post-recession era, it is worthwhile to analyze unemployment trends by numbers of factors in combination. 
+                        For instance, the recovery of the labor market may reflect the growth in the demand for goods and services. Therefore, gross domestic product (GDP) is a factor we like to discuss. 
+                        Also, we are interested in the relationship between the unemployment rates and the groups with high levels of education like the Bachelor’s degree or above. 
+                        Lastly, more factors such as each state will be taken into consideration in this project as well.</p>
+                    </div>
+                </div>
+
+                <div class="justify-content-between pt-3 pb-2 mb-3">
+                    <ul class="list-unstyled">
+                      <li class="media">
+                        <img src="/images/temp.png" class="circle mr-3">
+                        <div class="media-body">
+                          <h5 class="mt-0 mb-1">Yi-Tang Chen (chen.10522)</h5>
+                          CSE Graduate Student
+                        </div>
+                      </li>
+                      <li class="media my-4">
+                        <img src="/images/superman.png" class="circle mr-3">
+                        <div class="media-body">
+                          <h5 class="mt-0 mb-1">Tsan-Ming Lu (lu.2331)</h5>
+                          CSE Graduate Student
+                        </div>
+                      </li>
+                    </ul>
+                </div>                
+
+              </div>
+          </main>
+  
+        </div>
+      </div>
+</body>
+</html>

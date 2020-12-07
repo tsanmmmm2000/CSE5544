@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+  <script type="text/javascript" src="dataset.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css" >
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/overview">CSE 5544 Final Project</a>
+    </nav>
+      
+      <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="/overview">
+                    <span data-feather="book-open"></span>
+                    Overview
+                  </a>
+                </li>                 
+                <li class="nav-item">
+                  <a class="nav-link" href="/question1">
+                    <span data-feather="map"></span>
+                    Question 1
+                  </a>
+                </li>                              
+                <li class="nav-item">
+                  <a class="nav-link" href="/question2and3">
+                    <span data-feather="activity"></span>
+                    Question 2 & 3
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="/dataset">
+                    <span data-feather="file-text"></span>
+                    Data Source
+                  </a>
+                </li>                                       
+              </ul>
+            </div>
+          </nav>
+      
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="justify-content-between pt-3 pb-2 mb-3">
+              <div class="card">
+                <h5 class="card-header">Statewide unemployment data</h5>
+                <div class="card-body">
+                  <p class="card-text">The Bureau of Labor Statistics (BLS)</p>
+                  <p class="card-text">Consists of date (1976 to 2020), state , unemployment rate, etc.</p>
+                  <p class="card-text">28,514 instances</p>
+                  <a href="https://www.bls.gov/web/laus.supp.toc.htm" target="_blank" class="btn btn-primary">See source</a>
+                </div>
+              </div>
+            </div>
+            <div class="justify-content-between pt-3 pb-2 mb-3">
+              <div class="card">
+                <h5 class="card-header">Statewide educational attainment data</h5>
+                <div class="card-body">
+                  <p class="card-text">U.S. Census Bureau</p>
+                  <p class="card-text">Consists of state, size and percent of population being above 18 years old, etc.</p>
+                  <p class="card-text">52 instances * 10 files (2010 to 2019)</p>
+                  <a href="https://data.census.gov/cedsci/table?q=education%20attraitment&g=0100000US.04000.001&tid=ACSST1Y2018.S1501&moe=false&hidePreview=true" target="_blank" class="btn btn-primary">See source</a>
+                </div>
+              </div>
+            </div>
+            <div class="justify-content-between pt-3 pb-2 mb-3">
+              <div class="card">
+                <h5 class="card-header">Statewide GDP data</h5>
+                <div class="card-body">
+                  <p class="card-text">U.S. Bureau of Economic Analysis (BEA)</p>
+                  <p class="card-text">Consists of date (2010 to 2019), state, quarterly and annual GDP, GDP growth rate, personal income, etc.</p>
+                  <p class="card-text">60 instances</p>
+                  <a href="https://www.bea.gov/data/gdp/gdp-state" target="_blank" class="btn btn-primary">See source</a>
+                </div>
+              </div>
+            </div>
+            <div class="justify-content-between pt-3 pb-2 mb-3 border-bottom">
+              <div id="dataset"></div>
+            </div>
+
+          </main>
+  
+        </div>
+      </div>
+</body>
+</html>
