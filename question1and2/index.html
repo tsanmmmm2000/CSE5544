@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>CSE 5544 Final Project</title>
+	<!-- <script type="text/javascript" src="d3/d3.min.js"></script>  -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+	<script src="https://d3js.org/topojson.v2.min.js"></script>
+	<!-- add by Tsan-Ming Lu -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+	<link rel="stylesheet" href="../style.css">
+	<style>
+		body {
+			font-family: sans-serif;
+			font-size: .875rem;
+		}
+
+		table {
+			text-align: center;
+		}
+
+		.tooltip-donut {
+			position: absolute;
+			text-align: center;
+			padding: .2rem;
+			background: #FFFFFF;
+			color: #313639;
+			border: 1px solid #313639;
+			border-radius: 8px;
+			pointer-events: none;
+			font-size: 1.0rem;
+		}
+
+		input[type="range"] {
+			width: 400px;
+		}
+
+		#sliderContainer {
+			background-color: lightblue;
+			border-style: groove;
+			margin-bottom: 20px;
+			padding-bottom: 10px;
+			padding-right: 20px;
+			padding-left: 20px;
+			border-radius: 1em;
+		}
+
+		#map_svg {
+			background-color: #E0E0E0;
+		}
+
+		#map_title {
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		.radio_area {
+			background-color: lightgrey;
+			padding-top: 6px;
+			padding-right: 10px;
+			padding-left: 10px;
+			border-radius: .2em;
+		}
+	</style>
+	<!-- add by Tsan-Ming Lu -->
+	<script>
+		$(function () { feather.replace(); });
+	</script>
+</head>
+
+<body>
+	<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="../overview">CSE 5544 Final Project</a>
+	</nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+				<div class="sidebar-sticky pt-3">
+					<ul class="nav flex-column">
+						<li class="nav-item">
+							<a class="nav-link" href="../overview">
+								<span data-feather="book-open"></span>
+								Overview
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="../question1and2">
+								<span data-feather="map"></span>
+								Question 1 & 2
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../question3and4">
+								<span data-feather="activity"></span>
+								Question 3 & 4
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="../dataset">
+								<span data-feather="file-text"></span>
+								Data Source
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+
+			<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+				<div class="justify-content-between pt-3 pb-2 mb-3">
+					<div class="card">
+						<h5 class="card-header">Question 1</h5>
+						<div class="card-body">
+							<blockquote class="blockquote mb-0">
+								<p><cite>What is the state unemployment rate/ education attainment rate/ GDP growth rate of the United States in the past decade?</cite></p>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+				<div class="justify-content-between pt-3 pb-2 mb-3">
+					<div class="card">
+						<h5 class="card-header">Question 2</h5>
+						<div class="card-body">
+							<blockquote class="blockquote mb-0">
+								<p><cite>What is the trend of unemployment rate, GDP growth, and educational attainment
+										data in the past decade?</cite></p>
+							</blockquote>
+						</div>
+					</div>
+				</div>
+				<div class="justify-content-between pt-3 pb-2 mb-3 border-bottom">
+
+					<div class="container-fluid">
+						<div class="row">
+							<!-- US State Map Start -->
+							<!-- 
+								adjust by Tsan-Ming Lu 
+								from "col-md-7" to "col-md-12"
+							-->
+							<div class="col-md-12">
+								<div class="row justify-content-center">
+									<div id="sliderContainer">
+										<div class="row justify-content-center">
+											<div id="range">2010</div>
+										</div>
+										<input id="timeslide" type="range" min="0" max="9" value="0" step="1" /><br>
+									</div>
+								</div>
+								<div class="row justify-content-center">
+									<div class="col-2">
+										<div class="row justify-content-center">
+											<button type="button" id="btn_ur" class="btn btn-item btn-secondary">Unemployment Rate</button>
+										</div>
+									</div>
+									<div class="col-2">
+										<div class="row justify-content-center">
+											<button type="button" id="btn_ea" class="btn btn-item btn-secondary">Education Attainment</button>
+										</div>
+									</div>
+									<div class="col-2">
+										<div class="row justify-content-center">
+											<button type="button" id="btn_gg" class="btn btn-item btn-secondary">GDP Growth</button>
+										</div>
+									</div>
+								</div>
+								<div class="row justify-content-center">
+									<h3 id="map_title">Unemployment Rate</h3>
+								</div>
+								<div class="row justify-content-center">
+									<div id="map_svg"></div> <!-- US-State Map -->
+								</div>
+							</div>
+							<!-- US State Map End -->
+							<div id="state-table" class="col-md-5">
+								<div id="table_svg"></div> <!-- Useless thing-->
+							</div>
+						</div>
+						<br>
+						<div class="row justify-content-center">
+							<!-- 
+								adjust by Tsan-Ming Lu 
+								from "col-md-4" to "col-md-6"
+							-->
+							<div class="col-md-5">
+								<div class="row justify-content-center">
+									<div class="radio_area">
+										<input type="radio" id="line_radio1" name="line_select" value="1" checked>
+										<label for="line_radio1">&nbsp;Left Line Graph</label><br>
+									</div>
+								</div>
+								<div class="row justify-content-center">
+									<p id="line_title1"></p>
+								</div>
+								<div class="row">
+									<div id="line_svg1"></div> <!-- line graph1 -->
+								</div>
+							</div>
+							<!-- 
+								adjust by Tsan-Ming Lu 
+								from "col-md-4" to "col-md-6"
+							-->
+							<div class="col-md-5">
+								<div class="row justify-content-center">
+									<div class="radio_area">
+										<input type="radio" id="line_radio2" name="line_select" value="2">
+										<label for="line_radio2">&nbsp;Right Line Graph</label><br>
+									</div>
+								</div>
+								<div class="row justify-content-center">
+									<p id="line_title2"></p>
+								</div>
+								<div class="row">
+									<div id="line_svg2"></div> <!-- line graph2 -->
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+
+				</div>
+			</main>
+
+		</div>
+	</div>
+
+	<script type="text/javascript" src="data_processing.js"></script>
+	<script type="text/javascript" src="map_panel.js"></script>
+	<script type="text/javascript" src="line_graph.js"></script>
+</body>
+
+</html>
