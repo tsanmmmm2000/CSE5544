@@ -124,7 +124,7 @@ const colorList = {
 
 var timeValue = "2010";
 var domainList = {
-    'ur': [0, 10],
+    'ur': [0.75, 9.75],
     'ea': [25, 30],
     'gg': [-1.1, 3.3]
 };
